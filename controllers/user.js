@@ -1,9 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const mysqlConnection = require("../database");
+const mysqlConnection = require("../database/config");
 
-// GET all Users
-router.get("/", (req, res) => {
+const getUsers = (req, res) => {
   mysqlConnection.query(
     "SELECT * FROM users_test_CarlosValencia",
     (err, rows, fields) => {
@@ -14,15 +11,9 @@ router.get("/", (req, res) => {
       }
     }
   );
-});
+};
 
-// INSERT An User
-
-// INSERT INTO users_test_CarlosValencia
-// (nombre,segundo_nombre,apellido_paterno,apellido_materno,fechaNacimiento,email,telefono) VALUES
-// ('Jose','Carlos','Valencia','Valenzuela','1996-01-23','jocavalenciava@ittepic.edu.mx','3111682346');
-
-router.post("/", (req, res) => {
+const postUser = (req, res) => {
   const {
     nombre,
     segundo_nombre,
@@ -57,6 +48,9 @@ router.post("/", (req, res) => {
       }
     }
   );
-});
+};
 
-module.exports = router;
+module.exports = {
+  getUsers,
+  postUser,
+};
